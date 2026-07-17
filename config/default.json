@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "protocol_id": "legendre-mia-k4-v1",
+  "image": {
+    "datasets": ["cifar10_stdaug", "cifar100_stdaug", "cinic10_stdaug", "tinyimagenet_stdaug"],
+    "dataset_names": {
+      "cifar10_stdaug": "cifar10",
+      "cifar100_stdaug": "cifar100",
+      "cinic10_stdaug": "cinic10",
+      "tinyimagenet_stdaug": "tinyimagenet"
+    },
+    "target_training": {
+      "architecture": "resnet18",
+      "augmentation": "stdaug",
+      "seed": 42,
+      "epochs": 100,
+      "batch_size": 128,
+      "optimizer": "Adam",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "scheduler": "MultiStepLR",
+      "scheduler_milestones": [24],
+      "scheduler_gamma": 0.1,
+      "train_fraction": 0.5,
+      "split": "class-stratified"
+    },
+    "reference_training": {
+      "architecture": "resnet18",
+      "augmentation": "stdaug",
+      "num_references": 256,
+      "membership": "pair-complement exact class-balanced",
+      "design_seed": 20260515,
+      "dataset_seed_offsets": {
+        "cifar10_stdaug": 0,
+        "cifar100_stdaug": 1000,
+        "tinyimagenet_stdaug": 2000,
+        "cinic10_stdaug": 3000
+      },
+      "model_seed_base": 42,
+      "epochs": 30,
+      "batch_size": 128,
+      "optimizer": "Adam",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "scheduler": "MultiStepLR",
+      "scheduler_milestones": [24],
+      "scheduler_gamma": 0.1
+    },
+    "shadow_training": {
+      "num_shadows": 8,
+      "seed_base": 2026
+    },
+    "cache": {
+      "views": 128,
+      "seed": 42,
+      "unique_stdaug_views": true,
+      "sample_index_views": true,
+      "include_center_view": false,
+      "stored_prob_dtype": "float16",
+      "signals": ["true_prob", "max_other_prob"]
+    },
+    "budgets": {
+      "small": {
+        "reference_models": 16,
+        "out_references_per_sample": 8,
+        "views": 8
+      },
+      "large": {
+        "reference_models": 256,
+        "out_references_per_sample": 128,
+        "views": 128
+      }
+    },
+    "attack": {
+      "method": "Ours_Legendre_K4",
+      "feature": "[Q0,B0,Q1,B1,Gamma_2,Gamma_3,Gamma_4]",
+      "legendre_k": 4,
+      "shadow_models": 8,
+      "pseudo_ids": [0, 1, 2, 3, 4, 5, 6, 7],
+      "hidden": 8,
+      "dropout": 0.05,
+      "weight_decay": 0.01,
+      "learning_rate": 0.001,
+      "gate_l1": 0.0001,
+      "epochs": 30,
+      "batch_size": 65536,
+      "seed": 20260629,
+      "device": "cpu"
+    }
+  },
+  "tabular": {
+    "datasets": ["purchase100", "texas100", "location30"],
+    "model_training": {
+      "seed": 42,
+      "reference_count": 256,
+      "membership": "pair-complement exact balanced design (p=0.5)",
+      "target_train_fraction": 0.5,
+      "epochs": 120,
+      "batch_size": 512,
+      "score_batch_size": 2048,
+      "optimizer": "adamw",
+      "lr": 0.001,
+      "weight_decay": 0.0,
+      "architectures": {
+        "purchase100": [128],
+        "texas100": [1024, 512, 256, 128],
+        "location30": [512, 256, 128]
+      }
+    },
+    "quality_control": {
+      "minimum_train_accuracy": 0.999,
+      "epochs": 120,
+      "early_stop_accuracy": 0.999,
+      "early_stop_min_epochs": 10
+    },
+    "attack": {
+      "method": "Ours-Legendre",
+      "reference_pool": 256,
+      "out_references_per_sample": 128,
+      "legendre_k": 4,
+      "shadow_models": 8,
+      "hidden": 8,
+      "dropout": 0.05,
+      "weight_decay": 0.01,
+      "learning_rate": 0.001,
+      "gate_l1": 0.0001,
+      "epochs": 30,
+      "batch_size": 65536,
+      "num_threads": 10,
+      "num_interop_threads": 4,
+      "max_train_rows_per_pseudo": 60000,
+      "seed": 20260629,
+      "reference_seed": 20260629,
+      "device": "cpu"
+    }
+  },
+  "reporting": {
+    "fpr_points": [0.01, 0.001, 0.0001, 0.00001],
+    "metric_policy": "exact ROC step: max TPR at FPR <= requested FPR",
+    "roc_drop_intermediate": false,
+    "rank_sort": "descending stable mergesort",
+    "loglog_floor": 0.00001,
+    "plot_style": "IEEE serif"
+  }
+}

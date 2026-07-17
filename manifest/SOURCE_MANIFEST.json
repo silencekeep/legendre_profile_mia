@@ -1,0 +1,40 @@
+{
+  "description": "Source-integrity manifest for the image and tabular pipeline.",
+  "vendored_sources": [
+    {
+      "source_id": "image_model_components",
+      "vendored_path": "legendre_mia/models/image.py",
+      "vendored_sha256": "4e257826f1ea305135935074655dfb92c38cde5a80a4de8a04827e9d697a6c82"
+    },
+    {
+      "source_id": "image_target_training",
+      "vendored_path": "legendre_mia/workflows/train_image_target.py",
+      "vendored_sha256": "0250f27f7b2d8c34895a768178bbfb1ae5c41426640bc84fb9c7c2dca1ff2217"
+    },
+    {
+      "source_id": "image_reference_training",
+      "vendored_path": "legendre_mia/workflows/train_image_references.py",
+      "vendored_sha256": "09dbe1f31658674b89a333c6cfa7f0d747271269fa2bdc2d826a82114567cd8a"
+    },
+    {
+      "source_id": "image_output_export",
+      "vendored_path": "legendre_mia/workflows/cache_image_outputs.py",
+      "vendored_sha256": "1e35a22c0d30b1238d499a6e848568a29338ec73db929af53cb6b2ab7b4b4d32"
+    },
+    {
+      "source_id": "tabular_model_training",
+      "vendored_path": "legendre_mia/models/tabular.py",
+      "vendored_sha256": "8f28af4dffd15dc6d7b096a127d60a61e98b081e24a56b13262bbb3f56d8cd43"
+    },
+    {
+      "source_id": "tabular_quality_control",
+      "vendored_path": "legendre_mia/workflows/quality_control_tabular.py",
+      "vendored_sha256": "d8a59f4f7cdb3a067532b7fe898fc2a8dbf887e31fbae3386048c15e65a0e161"
+    },
+    {
+      "source_id": "tabular_output_export",
+      "vendored_path": "legendre_mia/workflows/cache_tabular_outputs.py",
+      "vendored_sha256": "3db77f47995dc2db192c924bfd045acd8eaa9d1e004773ca811bd2d268e3746e"
+    }
+  ]
+}

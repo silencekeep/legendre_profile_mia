@@ -1,0 +1,16 @@
+name: legendre-mia
+channels:
+  - pytorch
+  - nvidia
+  - defaults
+dependencies:
+  - python=3.10.18
+  - numpy=2.0.1
+  - pandas=2.3.3
+  - scipy=1.15.3
+  - scikit-learn=1.7.2
+  - matplotlib=3.10.6
+  - pillow=11.3.0
+  - pytorch=2.5.1
+  - torchvision=0.20.1
+  - pytorch-cuda=11.8

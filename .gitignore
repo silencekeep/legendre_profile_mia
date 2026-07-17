@@ -1,0 +1,10 @@
+artifacts/
+outputs/
+logs/
+*.pt
+*.pth
+*.npz
+*.csv.gz
+__pycache__/
+.pytest_cache/
+*.py[cod]
